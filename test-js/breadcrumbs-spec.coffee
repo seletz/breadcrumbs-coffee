@@ -24,42 +24,39 @@ describe "Breadcrumbs", ->
             (expect @path.path).toBeDefined()
 
         it "can add a path element", ->
-            @path.add(@path_element)
+            @path = @path.add(@path_element)
             (expect @path.length()).toEqual(1)
 
         it "can get the path", ->
-            @path.add(@path_element)
+            @path = @path.add(@path_element)
             (expect @path.get()).toContain(@path_element)
 
         it "can handle more than one path", ->
             for i in [1..10]
-                @path.add(new PathElement
-                    name: "Element #{i}"
-                    id:    i
-                )
+                @path = @path.add(new PathElement
+                            name: "Element #{i}"
+                            oid:  i
+                        )
             (expect @path.length()).toEqual(10)
 
         it "can read/write the path to an HTML element", ->
             for i in [1..10]
-                @path.add(new PathElement
-                    name: "Element #{i}"
-                    id:    i
-                )
+                @path = @path.add(new PathElement
+                            name: "Element #{i}"
+                            oid:  i
+                        )
             @path.to_element(@el)
-            (expect @path.from_element(@el)).toEqual(@path.get())
+            (expect @path.from_element(@el)).toEqual(@path)
 
-
-        it "can calculate the nth path element", ->
-            for i in [1..10]
-                @path.add(new PathElement
-                    name: "Element #{i}"
-                    id:    i
-                )
-            all = @path.get()
-            pruned = @path.nth(all[5])
-            (expect pruned).toEqual(all[0..5])
-            console.debug all
-            console.debug pruned
+        #it "can calculate the nth path element", ->
+            #for i in [1..10]
+                #@path = @path.add(new PathElement
+                            #name: "Element #{i}"
+                            #oid:  i
+                        #)
+            #all = @path.get()
+            #pruned = @path.nth(all[5])
+            #(expect pruned).toEqual(all[0..5])
 
 
     describe "BreadcumbsView", ->
@@ -68,14 +65,5 @@ describe "Breadcrumbs", ->
             @view = new BreadcumbsView()
             @el = $("<div>")
 
-        it "handles a click ", ->
-            for i in [1..10]
-                @path.add(new PathElement
-                    name: "Element #{i}"
-                    id:    i
-                )
-            @path.to_element(@el)
-            console.debug "BreadcumbsView: path=", @path
-            @view.clicked(@el)
 
 # vim: set ft=coffee ts=4 sw=4 expandtab:

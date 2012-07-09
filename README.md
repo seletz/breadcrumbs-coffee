@@ -15,12 +15,19 @@ Run the tests
 -------------
 
 ```bash
-    $ open test-js/suit.html
+    $ python -c "from SimpleHTTPServer import test; test()"
+    Serving HTTP on 0.0.0.0 port 8000 ...
 ```
+
+Browse to http://localhost:8000/test-js/suite.html
+
 
 Run the project
 ---------------
 
 ```bash
-    $ open public/index.html
+    $ python -c "from SimpleHTTPServer import test; test()"
+    Serving HTTP on 0.0.0.0 port 8000 ...
 ```
+
+Browse to http://localhost:8000/public/index.html

@@ -21,8 +21,8 @@ class Path
         @path = options.path or []
 
     add: (e) ->
-        path =  new Path({path:_.clone(@path)})
-        path.push(new PathElement(e))
+        path =  new Path({path: @get()})
+        path.path.push(new PathElement(e))
         return path
 
     length: ->
@@ -32,14 +32,14 @@ class Path
         _.clone(@path)
 
     nth: (n) ->
-        path = _.clone(@path[0..n])
+        path = @path[0..n]
         return new Path({path: path})
 
     to_element: (el) ->
-        $(el).data("path", @path)
+        $(el).data("path", @get())
 
     from_element: (el) ->
-        path = _.clone($(el).data("path"))
+        path = $(el).data("path")
         return new Path({path: path})
 
     get_path: ->
@@ -123,9 +123,11 @@ jQuery ->
 
     # We start at A
     # -----------------------
-    path = path.add
+    path = path.add(
+        new PathElement
             name: "A"
             id:    1
+    )
     # -----------------------
 
     bv = new BreadcumbsView()
@@ -170,16 +172,11 @@ jQuery ->
         render(p)
 
 
-
-
-
-
-
 # ----------------------------------------------------------------------------
-    # For Jasmine Tests only
-    window.Path           = Path
-    window.PathElement    = PathElement
-    window.BreadcumbsView = BreadcumbsView
-    window.CellView       = CellView
-    window.TableView      = TableView
+# For Jasmine Tests only
+window.Path           = Path
+window.PathElement    = PathElement
+window.BreadcumbsView = BreadcumbsView
+window.CellView       = CellView
+window.TableView      = TableView
 # ----------------------------------------------------------------------------
